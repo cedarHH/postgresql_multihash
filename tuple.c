@@ -72,12 +72,23 @@ Bits tupleHash(Reln r, Tuple t)
 {
 	char buf[MAXBITS+5];
 	Count nvals = nattrs(r);
+    Bits h[nattrs(r)+1];
+    Bits hash = 0, oneBit;
+    ChVecItem *cvitems = chvec(r);
+
 	char **vals = malloc(nvals*sizeof(char *));
 	assert(vals != NULL);
 	tupleVals(t, vals);
-	Bits hash = hash_any((unsigned char *)vals[0],strlen(vals[0]));
+    for (int i = 0; i < nattrs(r); ++i)
+        h[i] = hash_any((unsigned char *)vals[i], strlen(vals[i]));
+
+    for (int i = 0; i < MAXCHVEC; ++i) {
+        oneBit = bitIsSet(h[cvitems[i].att], cvitems[i].bit);
+        hash = hash | (oneBit << i);
+    }
 	bitsString(hash,buf);
 	printf("hash(%s) = %s\n", vals[0], buf);
+    freeVals(vals,nattrs(r));
 	return hash;
 }
 

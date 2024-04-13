@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "chvec.h": "c",
+        "tuple.h": "c",
+        "reln.h": "c",
+        "defs.h": "c",
+        "hash.h": "c",
+        "random": "c",
+        "page.h": "c",
+        "bits.h": "c",
+        "query.h": "c",
+        "array": "c",
+        "memory": "c",
+        "functional": "c",
+        "tuple": "c",
+        "utility": "c"
+    }
+}

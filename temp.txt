@@ -1,0 +1,20 @@
+PageID getNextPageID(Query q)
+{
+    Offset ovflow_pageID =  q->is_ovflow? 
+                            pageOvflow(getPage(ovflowFile(q->rel),q->curpage)):
+                            pageOvflow(getPage(dataFile(q->rel),q->curpage));
+
+    if(ovflow_pageID != NO_PAGE){
+        q->is_ovflow = 1;
+        return ovflow_pageID;
+    }
+    
+    do{
+        ++q->curdatapage;
+        if (q->curdatapage > getLower(q->known | q->unknown, depth(q->rel)))
+            return NO_PAGE;
+    } while (getLower(q->known, depth(q->rel)) != ((~q->unknown) & q->curdatapage));
+    q->is_ovflow = 0;
+    return q->curdatapage;
+}
+
