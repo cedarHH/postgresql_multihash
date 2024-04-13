@@ -2,3 +2,8 @@
 *
 !*/
 !*.*
+*.data
+*.info
+*.ovflow
+temp.txt
+.vscode/
