@@ -121,13 +121,13 @@ void closeRelation(Reln r)
 // returns NO_PAGE if insert fails completely
 // TODO: include splitting and file expansion
 
-PageID addToRelation(Reln r, Tuple t)
+PageID addToRelnWithoutSplit(Reln r, Tuple t)
 {
-	Bits h, p;
-	// char buf[MAXBITS+1];
-	h = tupleHash(r,t);
+    Bits h, p;
+    // char buf[MAXBITS+1];
+    h = tupleHash(r,t);
 	if (r->depth == 0)
-		p = 1;
+		p = 0;
 	else {
 		p = getLower(h, r->depth);
 		if (p < r->sp) p = getLower(h, r->depth+1);
@@ -188,6 +188,66 @@ PageID addToRelation(Reln r, Tuple t)
 		return p;
 	}
 	return NO_PAGE;
+}
+
+PageID addToRelation(Reln r, Tuple t)
+{
+    // no need to split
+    if(!r->ntups || r->ntups % (1024/10/r->nattrs)){
+        return addToRelnWithoutSplit(r,t);
+    }
+    // need to split
+    Page oldpage;
+    Tuple curtuple;
+    int nbuftuple = 0;
+    PageID curpageID,nextpageID;
+    Page newpage = newPage();
+    Tuple *tuplebuf = malloc(r->ntups * sizeof(Tuple));
+    curpageID = r->sp;
+    oldpage = getPage(r->data,r->sp);
+    nextpageID = pageOvflow(oldpage);
+    pageSetOvflow(newpage, nextpageID);
+    
+    curtuple = pageData(oldpage);
+    while (*curtuple){
+        tuplebuf[nbuftuple++] = copyString(curtuple);
+        curtuple += (tupLength(curtuple)+1);
+    }
+    putPage(r->data, curpageID, newpage);
+    curpageID = nextpageID;
+    
+    while(curpageID != NO_PAGE){
+        newpage = newPage();
+        oldpage = getPage(r->ovflow, curpageID);
+        nextpageID = pageOvflow(oldpage);
+        pageSetOvflow(newpage, nextpageID);
+        curtuple = pageData(oldpage);
+        while (*curtuple){
+            tuplebuf[nbuftuple++] = copyString(curtuple); 
+            curtuple += (tupLength(curtuple)+1);
+        }
+        putPage(r->ovflow, curpageID, newpage);
+        curpageID = nextpageID;
+    }
+
+    newpage = newPage();
+    putPage(r->data,(1<<r->depth)+r->sp,newpage);
+    ++r->sp;
+    ++r->npages;
+    if(r->sp == 1<<r->depth){
+        ++r->depth;
+        r->sp = 0;
+    }
+
+    for(int i = 0; i<nbuftuple; ++i){
+        if(addToRelnWithoutSplit(r,tuplebuf[i]) == NO_PAGE){
+            return NO_PAGE;
+        }
+        --r->ntups;
+        free(tuplebuf[i]); 
+    }
+    free(tuplebuf);
+	return addToRelnWithoutSplit(r,t);
 }
 
 // external interfaces for Reln data

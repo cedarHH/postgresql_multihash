@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/select",
-            "args": ["R", "\"1042,?,?\""],
+            "args": ["R","'?,?,shoes'"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
