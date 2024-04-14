@@ -4,6 +4,7 @@ gendata
 insert
 select
 stats
+R.ovflow
 *.o
 *.data
 *.info

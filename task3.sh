@@ -1,6 +1,6 @@
 make
 rm  -f  R.*
-./create  R  20  2  "0,1:0,2:0,3:0,4:0,5:0,6"
+./create  R  10  2  "0,1:0,2:0,3:0,4:0,5:0,6"
 ./insert R < data3_1.txt
 echo "\ninsert 0-5\n"
 ./stats  R
