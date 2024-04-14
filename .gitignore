@@ -1,6 +1,9 @@
-*
-!*/
-!*.*
+create
+dump
+gendata
+insert
+select
+stats
 *.o
 *.data
 *.info

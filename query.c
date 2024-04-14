@@ -94,7 +94,8 @@ Tuple getNextTuple(Query q)
         else{   //move to "next" bucket
             do{ //Use the partial hash to find candidate pages
                 ++q->curdatapage;
-                if (q->curdatapage > getLower(q->known | q->unknown, depth(q->rel)))
+                //if (q->curdatapage > getLower(q->known | q->unknown, depth(q->rel)))
+                if (q->curdatapage >= npages(q->rel))
                     return NULL;
             } while (getLower(q->known, depth(q->rel)) != ((~q->unknown) & q->curdatapage));
             q->is_ovflow = 0;

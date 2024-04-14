@@ -87,7 +87,7 @@ Bits tupleHash(Reln r, Tuple t)
         hash = hash | (oneBit << i);
     }
 	bitsString(hash,buf);
-	printf("hash(%s) = %s\n", vals[0], buf);
+	//printf("hash(%s) = %s\n", vals[0], buf);
     freeVals(vals,nattrs(r));
 	return hash;
 }

@@ -1,0 +1,12 @@
+12,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,12,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+13,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,13,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+14,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,14,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+15,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,15,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+16,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,12,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+17,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,13,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+18,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,14,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+19,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,15,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+20,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,12,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+21,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,13,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+22,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,14,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+23,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiii,15,aaaa,bbbb,cccc,dddd,eeee,ffff,gggg,hhhh,iiiiaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
