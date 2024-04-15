@@ -25,6 +25,10 @@ struct RelnRep {
 	FILE  *ovflow; // handle on ovflow file
 };
 
+PageID addToRelation(Reln, Tuple);
+Count addTuplesFromBuffer(Reln, Tuple *, Count);
+Count readPageTuplesToBuffer(Page, Tuple *, Count);
+
 // create a new relation (three files)
 
 Status newRelation(char *name, Count nattrs, Count npages, Count d, char *cv)
@@ -190,6 +194,26 @@ PageID addToRelnWithoutSplit(Reln r, Tuple t)
 	return NO_PAGE;
 }
 
+Count readPageTuplesToBuffer(Page oldpage, Tuple *tuplebuf, Count nbuftuple){
+    Tuple curtuple = pageData(oldpage);
+    while (*curtuple){
+        tuplebuf[nbuftuple++] = copyString(curtuple);
+        curtuple += (tupLength(curtuple)+1);
+    }
+    return nbuftuple;
+}
+
+Count addTuplesFromBuffer(Reln r, Tuple *tuplebuf, Count nbuftuple){
+    for(int i = 0; i<nbuftuple; ++i){
+        if(addToRelnWithoutSplit(r,tuplebuf[i]) == NO_PAGE){
+            return NO_PAGE;
+        }
+        --r->ntups;
+        free(tuplebuf[i]); 
+    }
+    return 0;
+}
+
 PageID addToRelation(Reln r, Tuple t)
 {
     // no need to split
@@ -198,54 +222,50 @@ PageID addToRelation(Reln r, Tuple t)
     }
     // need to split
     Page oldpage;
-    Tuple curtuple;
-    int nbuftuple = 0;
+    Count nbuftuple = 0;
     PageID curpageID,nextpageID;
     Page newpage = newPage();
-    Tuple *tuplebuf = malloc(r->ntups * sizeof(Tuple));
+    // Buffer for tuples
+    // Worst case the page to be split contains all the tuples
+    Tuple *tuplebuf = malloc(r->ntups * sizeof(Tuple)); 
+    // Split bucket r->sp
     curpageID = r->sp;
     oldpage = getPage(r->data,r->sp);
     nextpageID = pageOvflow(oldpage);
     pageSetOvflow(newpage, nextpageID);
-    
-    curtuple = pageData(oldpage);
-    while (*curtuple){
-        tuplebuf[nbuftuple++] = copyString(curtuple);
-        curtuple += (tupLength(curtuple)+1);
-    }
+    // Read all the to-be-redistributed tuples of a page to buffer
+    nbuftuple = readPageTuplesToBuffer(oldpage, tuplebuf, nbuftuple);
+    // Clear bucket
     putPage(r->data, curpageID, newpage);
     curpageID = nextpageID;
+    // Re-insert tuples
+    nbuftuple = addTuplesFromBuffer(r, tuplebuf, nbuftuple);
     
     while(curpageID != NO_PAGE){
+        // Clear overflow page
         newpage = newPage();
         oldpage = getPage(r->ovflow, curpageID);
         nextpageID = pageOvflow(oldpage);
         pageSetOvflow(newpage, nextpageID);
-        curtuple = pageData(oldpage);
-        while (*curtuple){
-            tuplebuf[nbuftuple++] = copyString(curtuple); 
-            curtuple += (tupLength(curtuple)+1);
-        }
+        // Read all the to-be-redistributed tuples of a page to buffer
+        nbuftuple = readPageTuplesToBuffer(oldpage, tuplebuf, nbuftuple);
         putPage(r->ovflow, curpageID, newpage);
         curpageID = nextpageID;
+        // Re-insert tuples
+        nbuftuple = addTuplesFromBuffer(r, tuplebuf, nbuftuple);
     }
-
+    // Add new data page
     newpage = newPage();
     putPage(r->data,(1<<r->depth)+r->sp,newpage);
+    // increment sp
     ++r->sp;
     ++r->npages;
+    // if reach a new power of two, reset sp = 0 and increment d
     if(r->sp == 1<<r->depth){
         ++r->depth;
         r->sp = 0;
     }
 
-    for(int i = 0; i<nbuftuple; ++i){
-        if(addToRelnWithoutSplit(r,tuplebuf[i]) == NO_PAGE){
-            return NO_PAGE;
-        }
-        --r->ntups;
-        free(tuplebuf[i]); 
-    }
     free(tuplebuf);
 	return addToRelnWithoutSplit(r,t);
 }
