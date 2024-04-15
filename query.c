@@ -92,12 +92,17 @@ Tuple getNextTuple(Query q)
             q->curpage = ovflow_pageID;
         }
         else{   //move to "next" bucket
+            Bits known_partial_hash;
             do{ //Use the partial hash to find candidate pages
                 ++q->curdatapage;
                 //if (q->curdatapage > getLower(q->known | q->unknown, depth(q->rel)))
                 if (q->curdatapage >= npages(q->rel))
                     return NULL;
-            } while (getLower(q->known, depth(q->rel)) != ((~q->unknown) & q->curdatapage));
+                known_partial_hash = getLower(  q->known, 
+                                                q->curdatapage<(1<<depth(q->rel))?
+                                                depth(q->rel) : depth(q->rel)+1
+                                             );
+            } while ((q->curdatapage & (~q->unknown)) != known_partial_hash);
             q->is_ovflow = 0;
             q->curpage = q->curdatapage;
         }
